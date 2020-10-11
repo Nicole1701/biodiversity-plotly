@@ -7,12 +7,11 @@ function init() {
   d3.json("data/samples.json").then((bbData) => {
     console.log(bbData);
 
-    let subId = bbData.names;
-    subId.forEach(function (name) {
+    bbData.names.forEach(function (name) {
       dropdownMenu.append("option").text(name).property("value");
     });
 
-    demoTable(bbData.subId[0]);
+    demoInfo(bbData.names[0]);
   });
 }
 
@@ -23,7 +22,8 @@ function demoInfo(subject) {
     console.log(bbData.metadata);
 
     //Build the Demo Table
-    let demo = bbData.metadata.filter((item) => item.id == subject);
+    let demo = bbData.metadata.filter((item) => item.id.toString() == subject);
+    console.log(demo);
     let demoResult = demo[0];
     console.log(demoResult);
     let demoTable = d3.select("#sample-metadata");
@@ -36,8 +36,10 @@ function demoInfo(subject) {
     });
   });
 }
+function optionChange(subject) {
+  demoInfo(subject);
+}
 
-// demoInfo();
 init();
 
 // /**
