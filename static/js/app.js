@@ -1,50 +1,67 @@
-/**
- * Helper function to select data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - id
- * index 1 - otu_ids
- * index 2 - sample_values
- * index 3 - otu_labels
+// Initialize the page with a default ID
+function init() {
+  // Use D3 to select the dropdown menu
+  let dropdownMenu = d3.select("#selDataset");
 
- */
+  // Assign the value of the dropdown menu option to a variable
+  d3.json("data/samples.json").then((bbData) => {
+    console.log(bbData);
 
-function buildPlot(bar) {
-  // Fetch the JSON data and console log it
-  var bbdata = d3.json("data/samples.json").then((bbdata) => {
-    console.log(bbdata);
-    let ids = bbdata.samples[0].id;
-    console.log(ids);
-    let otu = bbdata.samples[1].otu_ids;
-    console.log(otu);
-    let values = bbdata.samples[2].sample_values;
-    console.log(values);
-    let labels = bbdata.samples[3].otu_labels;
-    console.log(labels);
+    let subId = bbData.names;
+    subId.forEach((id) => {
+      dropdownMenu.append("option").text(id).property("value", id);
+    });
   });
-
-  var trace1 = {
-    type: "bar",
-    x: values,
-    y: otu,
-    line: {
-      color: "#17BECF",
-    },
-  };
-
-  var bbdata = [trace1];
-
-  var layout = {
-    title: `${id} OTU ID's`,
-    xaxis: { title: { text: "OTU ID" } },
-    yaxis: { title: { text: "Sample Values" } },
-  };
-
-  Plotly.newPlot("plot", bbdata, layout);
 }
 
-buildPlot(bar);
+init();
+
+// /**
+//  * Helper function to select data
+//  * Returns an array of values
+//  * @param {array} rows
+//  * @param {integer} index
+//  * index 0 - id
+//  * index 1 - otu_ids
+//  * index 2 - sample_values
+//  * index 3 - otu_labels
+
+//  */
+// d3.json("data/samples.json").then((data) => {
+//   console.log(data);
+
+//   function buildPlot(bar) {
+//     // Fetch the JSON data and console log it
+
+//     var ids = data.samples[0].id;
+//     console.log(ids);
+//     var otu = data.samples[0].otu_ids;
+//     console.log(otu);
+//     var values = sampledata.samples[0].sample_values;
+//     console.log(values);
+//     var labels = bdata.samples[0].otu_labels;
+//     console.log(labels);
+//   }
+
+//   var trace1 = {
+//     type: "bar",
+//     x: values,
+//     y: otu,
+//   };
+
+//   var data = [trace1];
+
+//   var layout = {
+//     title: `${id} OTU ID's`,
+//     xaxis: { title: "OTU ID" },
+//     yaxis: { title: "Sample Values" },
+//   };
+
+//   Plotly.newPlot("bar", data, layout);
+
+//   buildPlot(bar);
+// });
+
 // Fetch the JSON data and console log it
 // let bbdata = d3.json("data/samples.json").then((bbdata) => {
 //   console.log(bbdata);
