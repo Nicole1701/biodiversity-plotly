@@ -59,8 +59,18 @@ function demoInfo(subject) {
 function buildPlot(subject) {
   // Fetch the JSON data and console log it
   d3.json("data/samples.json").then((bbData) => {
-    console.log(bbData.samples);
+    //Set variables
+    let barArr = bbData.samples.filter((item) => item.id == subject);
+    // console.log(barArr);
+
+    var barResult = barArr[0];
+    console.log(barResult);
   });
+
+  let otu = barResult.otu_ids;
+  console.log(otu);
+  // let labels = barResult.otu_labels;
+  // console.log(labels);
 }
 
 // Change event function
