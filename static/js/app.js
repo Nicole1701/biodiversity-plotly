@@ -22,21 +22,26 @@ function demoInfo(subject) {
     console.log(bbData.metadata);
 
     //Build the Demo Table
-    let demo = bbData.metadata.filter((item) => item.id.toString() == subject);
+    let demo = bbData.metadata.filter(
+      (item) => item.id.toString() == subject
+    )[0];
     console.log(demo);
-    let demoResult = demo[0];
-    console.log(demoResult);
+
+    // let demoResult = demo[0];
+    // console.log(demoResult);
+
     let demoTable = d3.select("#sample-metadata");
 
     //Clear any previous data from the table
     demoTable.html("");
 
-    Object.entries(demoResult).forEach(([key, value]) => {
-      demoTable.append("h6").text(`${key.toUpperCase()}: ${value}`);
+    Object.entries(demo).forEach((key) => {
+      demoTable.append("h5").text(key[0].toUpperCase() + ": " + key[1]);
     });
   });
 }
-function optionChange(subject) {
+
+function optionChanged(subject) {
   demoInfo(subject);
 }
 
