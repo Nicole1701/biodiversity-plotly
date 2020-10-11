@@ -8,12 +8,36 @@ function init() {
     console.log(bbData);
 
     let subId = bbData.names;
-    subId.forEach((id) => {
-      dropdownMenu.append("option").text(id).property("value", id);
+    subId.forEach(function (name) {
+      dropdownMenu.append("option").text(name).property("value");
+    });
+
+    demoTable(bbData.subId[0]);
+  });
+}
+
+//Build demograhics table
+function demoInfo(subject) {
+  //Read in json data
+  d3.json("data/samples.json").then((bbData) => {
+    console.log(bbData.metadata);
+
+    //Build the Demo Table
+    let demo = bbData.metadata.filter((item) => item.id == subject);
+    let demoResult = demo[0];
+    console.log(demoResult);
+    let demoTable = d3.select("#sample-metadata");
+
+    //Clear any previous data from the table
+    demoTable.html("");
+
+    Object.entries(demoResult).forEach(([key, value]) => {
+      demoTable.append("h6").text(`${key.toUpperCase()}: ${value}`);
     });
   });
 }
 
+// demoInfo();
 init();
 
 // /**
