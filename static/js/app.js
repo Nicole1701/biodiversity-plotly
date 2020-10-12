@@ -85,6 +85,9 @@ function buildPlot(subject) {
     let sampleValues = barResult.sample_values;
     console.log(sampleValues);
 
+    let otuLabels = barResult.otu_labels;
+    console.log(otuLabels);
+
     //Sample Values already appear sorted so slice top 10 and reverse for chart
     let topValues = sampleValues.slice(0, 10).reverse();
     console.log(topValues);
@@ -114,11 +117,11 @@ function buildPlot(subject) {
       hovertemplate: topOtuHover,
     };
 
-    let data = [trace1];
+    let data1 = [trace1];
 
     // Set bar chart title and margin size to better fit space
     //plotly.com/python/setting-graph-size/
-    let layout = {
+    let layout1 = {
       title: `Subject ID: ${subject}`,
       margin: {
         l: 75,
@@ -129,9 +132,33 @@ function buildPlot(subject) {
     };
 
     // Plot the graph
-    Plotly.newPlot("bar", data, layout);
+    Plotly.newPlot("bar", data1, layout1);
 
     // Create the bubble chart
+    let trace2 = {
+      x: otu,
+      y: sampleValues,
+      mode: "marker",
+      mode: "markers",
+      marker: {
+        size: sampleValues,
+        color: otu,
+      },
+      text: otuLabels,
+    };
+
+    let data2 = [trace2];
+
+    let layout2 = {
+      title: `Subject ID: ${subject}`,
+      margin: {
+        t: 50,
+        b: 30,
+      },
+    };
+
+    // Plot the graph
+    Plotly.newPlot("bubble", data2, layout2);
   });
 }
 
