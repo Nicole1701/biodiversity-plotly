@@ -11,10 +11,27 @@
     />
   </head>
 
-  <body style="background-color: darkblue;">
+  <body
+    style="
+      background-image: url(static/images/background3.jpg);
+      background-size: 100%;
+      padding-bottom: 50px;
+    "
+  >
     <div class="container">
       <div class="row">
-        <div class="col-md-12 jumbotron text-center">
+        <div
+          class="col-md-12 jumbotron text-center"
+          style="
+            color: white;
+            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000,
+              -1px 1px 0 #000000, 1px 1px 0 #000000, -2px 0 0 #000000,
+              2px 0 0 #000000, 0 2px 0 #000000, 0 -2px 0 #000000;
+            background-color: white;
+            background-image: url(static/images/bacteria5.jpg);
+            background-size: 100%;
+          "
+        >
           <h1>Belly Button Biodiversity Dashboard</h1>
           <p>Use the interactive charts below to explore the dataset</p>
         </div>
@@ -35,10 +52,10 @@
             <div id="sample-metadata" class="panel-body"></div>
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" style="padding-bottom: 20px;">
           <div id="bar"></div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" style="padding-bottom: 20px;">
           <div id="gauge"></div>
         </div>
       </div>
