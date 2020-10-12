@@ -14,7 +14,6 @@ function init() {
     //Dislay data for charts/tables on the page
     demoInfo(bbData.names[0]);
     buildPlot(bbData.names[0]);
-    bonusPlot(bbData.names[0]);
   });
 }
 
@@ -148,13 +147,6 @@ function buildPlot(subject) {
 
     // Plot the chart
     Plotly.newPlot("bubble", data2, layout2);
-  });
-}
-
-function bonusPlot(subject) {
-  //Read in json data
-  d3.json("Data/samples.json").then((bbData) => {
-    console.log(bbData);
 
     let wfreq = bbData.metadata.map((item) => item.wfreq);
     console.log(wfreq);
@@ -167,7 +159,9 @@ function bonusPlot(subject) {
       {
         domain: { x: [0, 1], y: [0, 1] },
         value: parseFloat(wfreq),
-        title: { text: "Belly Button Washing Frequency" },
+        title: {
+          text: `Subject ID: ${subject}  <br> Belly Button Washing Frequency`,
+        },
         type: "indicator",
         mode: "gauge+number+delta",
         delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
@@ -202,7 +196,6 @@ function bonusPlot(subject) {
 function optionChanged(subject) {
   demoInfo(subject);
   buildPlot(subject);
-  bonusPlot(subject);
 }
 
 init();
