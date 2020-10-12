@@ -148,13 +148,17 @@ function buildPlot(subject) {
     // Plot the chart
     Plotly.newPlot("bubble", data2, layout2);
 
-    let wfreq = bbData.metadata.map((item) => item.wfreq);
+    // Gauge Chart
+    let gaugeData = bbData.metadata.filter(
+      (item) => item.id.toString() == subject
+    );
+    console.log(gaugeData);
+
+    let wfreq = gaugeData.map((item) => item.wfreq);
     console.log(wfreq);
 
-    //Create variables
-    // let wFreq = parseInt(gaugeResult.wfreq);
-    // console.log(wFreq);
-
+    // Build Gauge Chart
+    // plotly.com/javascript/gauge-charts/
     let data3 = [
       {
         domain: { x: [0, 1], y: [0, 1] },
@@ -163,8 +167,7 @@ function buildPlot(subject) {
           text: `Subject ID: ${subject}  <br> Belly Button Washing Frequency`,
         },
         type: "indicator",
-        mode: "gauge+number+delta",
-        delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+        mode: "gauge+number",
         gauge: {
           axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
           bar: { color: "darkblue" },
@@ -182,12 +185,14 @@ function buildPlot(subject) {
       },
     ];
 
+    // Set Layout
     let layout3 = {
-      width: 600,
+      width: 450,
       height: 500,
       margin: { t: 25, r: 25, l: 25, b: 25 },
     };
 
+    // Plot the chart
     Plotly.newPlot("gauge", data3, layout3);
   });
 }
