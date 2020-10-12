@@ -114,7 +114,7 @@ function buildPlot(subject) {
       type: "bar",
       orientation: "h",
       color: "blue ",
-      hovertemplate: topOtuHover,
+      hovertext: topOtuHover,
     };
 
     let data1 = [trace1];
@@ -138,11 +138,11 @@ function buildPlot(subject) {
     let trace2 = {
       x: otu,
       y: sampleValues,
-      mode: "marker",
       mode: "markers",
       marker: {
         size: sampleValues,
         color: otu,
+        colorscale: "Portland",
       },
       text: otuLabels,
     };
