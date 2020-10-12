@@ -111,6 +111,7 @@ function buildPlot(subject) {
     //plotly.com/python/setting-graph-size/
     let layout1 = {
       title: `Subject ID: ${subject}`,
+      height: 400,
       margin: {
         l: 75,
         r: 75,
@@ -164,7 +165,7 @@ function buildPlot(subject) {
         domain: { x: [0, 1], y: [0, 1] },
         value: parseFloat(wfreq),
         title: {
-          text: `Subject ID: ${subject}  <br> Belly Button Washing Frequency`,
+          text: `Subject ID: ${subject}  <br> Belly Button Washing Frequency <br> Scrubs Per Week`,
         },
         type: "indicator",
         mode: "gauge+number",
@@ -188,8 +189,8 @@ function buildPlot(subject) {
     // Set Layout
     let layout3 = {
       width: 450,
-      height: 500,
-      margin: { t: 25, r: 25, l: 25, b: 25 },
+      height: 400,
+      margin: { t: 0, r: 25, l: 25, b: 0 },
     };
 
     // Plot the chart
