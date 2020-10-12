@@ -14,6 +14,7 @@ function init() {
     //Dislay data for charts/tables on the page
     demoInfo(bbData.names[0]);
     buildPlot(bbData.names[0]);
+    bonusPlot(bbData.names[0]);
   });
 }
 
@@ -44,18 +45,6 @@ function demoInfo(subject) {
   });
 }
 
-// Create horizontal bar chart
-/**
- * Helper function to select data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - id
- * index 1 - otu_ids
- * index 2 - sample_values
- * index 3 - otu_labels
- */
-
 function buildPlot(subject) {
   // Create chart
   /**
@@ -71,11 +60,11 @@ function buildPlot(subject) {
 
   // Fetch the JSON data and console log it
   d3.json("data/samples.json").then((bbData) => {
-    // Filter for the data based on the subject ID selected and sae in array
+    // Filter for the data based on the subject ID selected and save in array
     let barArr = bbData.samples.filter((item) => item.id == subject);
     console.log(barArr);
 
-    var barResult = barArr[0];
+    let barResult = barArr[0];
     console.log(barResult);
 
     // Create variables
@@ -157,8 +146,55 @@ function buildPlot(subject) {
       },
     };
 
-    // Plot the graph
+    // Plot the chart
     Plotly.newPlot("bubble", data2, layout2);
+  });
+}
+
+function bonusPlot(subject) {
+  //Read in json data
+  d3.json("Data/samples.json").then((bbData) => {
+    console.log(bbData);
+
+    let wfreq = bbData.metadata.map((item) => item.wfreq);
+    console.log(wfreq);
+
+    //Create variables
+    // let wFreq = parseInt(gaugeResult.wfreq);
+    // console.log(wFreq);
+
+    let data3 = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: parseFloat(wfreq),
+        title: { text: "Belly Button Washing Frequency" },
+        type: "indicator",
+        mode: "gauge+number+delta",
+        delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+        gauge: {
+          axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
+          bar: { color: "darkblue" },
+          bgcolor: "white",
+          borderwidth: 2,
+          bordercolor: "gray",
+          steps: [
+            { range: [0, 2], color: "royalblue" },
+            { range: [2, 4], color: "cyan" },
+            { range: [4, 6], color: "royalblue" },
+            { range: [6, 8], color: "cyan" },
+            { range: [8, 9], color: "royalblue" },
+          ],
+        },
+      },
+    ];
+
+    let layout3 = {
+      width: 600,
+      height: 500,
+      margin: { t: 25, r: 25, l: 25, b: 25 },
+    };
+
+    Plotly.newPlot("gauge", data3, layout3);
   });
 }
 
@@ -166,6 +202,7 @@ function buildPlot(subject) {
 function optionChanged(subject) {
   demoInfo(subject);
   buildPlot(subject);
+  bonusPlot(subject);
 }
 
 init();
