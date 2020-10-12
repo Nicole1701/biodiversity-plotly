@@ -171,7 +171,6 @@ function buildPlot(subject) {
         mode: "gauge+number",
         gauge: {
           axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
-          dtick: 1,
           bar: { color: "darkblue" },
           bgcolor: "white",
           borderwidth: 2,
@@ -193,7 +192,7 @@ function buildPlot(subject) {
 
     // Set Layout
     let layout3 = {
-      width: 450,
+      width: 460,
       height: 400,
       margin: { t: 0, r: 25, l: 25, b: 0 },
     };
