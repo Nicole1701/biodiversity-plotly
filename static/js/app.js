@@ -37,7 +37,7 @@ function demoInfo(subject) {
     //Clear any previous data from the table
     demoTable.html("");
 
-    // Append the data to the data
+    // Append the data to the data and make key uppercase
     Object.entries(demoResult).forEach(([key, value]) => {
       demoTable.append("h5").text(key.toUpperCase() + ": " + value);
     });
@@ -57,20 +57,82 @@ function demoInfo(subject) {
  */
 
 function buildPlot(subject) {
+  // Create chart
+  /**
+   * Helper function to select data
+   * Returns an array of values
+   * @param {array} rows
+   * @param {integer} index
+   * index 0 - id
+   * index 1 - otu_ids
+   * index 2 - sample_values
+   * index 3 - otu_labels
+   */
+
   // Fetch the JSON data and console log it
   d3.json("data/samples.json").then((bbData) => {
-    //Set variables
+    // Filter for the data based on the subject ID selected and sae in array
     let barArr = bbData.samples.filter((item) => item.id == subject);
-    // console.log(barArr);
+    console.log(barArr);
 
     var barResult = barArr[0];
     console.log(barResult);
-  });
 
-  let otu = barResult.otu_ids;
-  console.log(otu);
-  // let labels = barResult.otu_labels;
-  // console.log(labels);
+    // Create variables
+    let otu = barResult.otu_ids;
+    console.log(otu);
+
+    let sampleValues = barResult.sample_values;
+    console.log(sampleValues);
+
+    //Sample Values already appear sorted so slice top 10 and reverse for chart
+    let topValues = sampleValues.slice(0, 10).reverse();
+    console.log(topValues);
+
+    //Sort otu labels and reverse
+    let topOtu = otu.slice(0, 10).reverse();
+    console.log(topOtu);
+
+    //Attach text 'OTU' to label
+    let topOtuLabel = topOtu.map((item) => "OTU " + item);
+    console.log(topOtuLabel);
+
+    // Create hovertext labels
+    let otuHover = barResult.otu_labels;
+    console.log(otuHover[0]);
+
+    let topOtuHover = otuHover.slice(0, 10).reverse();
+    console.log(topOtuHover);
+
+    // Create the bar chart trace
+    let trace1 = {
+      x: topValues,
+      y: topOtuLabel,
+      type: "bar",
+      orientation: "h",
+      color: "blue ",
+      hovertemplate: topOtuHover,
+    };
+
+    let data = [trace1];
+
+    // Set bar chart title and margin size to better fit space
+    //plotly.com/python/setting-graph-size/
+    let layout = {
+      title: `Subject ID: ${subject}`,
+      margin: {
+        l: 75,
+        r: 75,
+        t: 50,
+        b: 30,
+      },
+    };
+
+    // Plot the graph
+    Plotly.newPlot("bar", data, layout);
+
+    // Create the bubble chart
+  });
 }
 
 // Change event function
