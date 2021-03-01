@@ -4,7 +4,7 @@
 
 ## Before you Begin
 
-- Webpage can be found here: [Belly Button Biodiversity](https://nicole1701.github.io/plotly-challenge/index.html)
+- Webpage can be found here: [Belly Button Biodiversity](https://nicole1701.github.io/biodiversity-plotly/index.html)
 - Data used for this assignment is from the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/)
 
 ## Background
